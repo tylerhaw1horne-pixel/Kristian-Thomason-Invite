@@ -16,7 +16,6 @@ html, body {
   font-family:'Cinzel', serif;
 }
 
-/* ── VIDEO FILLS SCREEN ── */
 #vid-wrap {
   position:fixed;
   inset:0;
@@ -31,13 +30,11 @@ html, body {
   transform: scale(1.22) translateX(7%);
 }
 
-/* gradient masks hide TikTok watermarks at all edges */
 #mk-top    { position:absolute; top:0;    left:0; right:0;  height:14%; background:linear-gradient(to bottom, #000 45%, transparent); z-index:1; }
 #mk-bottom { position:absolute; bottom:0; left:0; right:0;  height:18%; background:linear-gradient(to top,    #000 40%, transparent); z-index:1; }
 #mk-left   { position:absolute; top:0;    left:0; bottom:0; width:10%;  background:linear-gradient(to right,  #000 35%, transparent); z-index:1; }
 #mk-right  { position:absolute; top:0;    right:0;bottom:0; width:10%;  background:linear-gradient(to left,   #000 25%, transparent); z-index:1; }
 
-/* ── SUBTLE GRAIN ── */
 #grain {
   position:fixed; inset:0; z-index:2;
   pointer-events:none; opacity:.04;
@@ -52,15 +49,11 @@ html, body {
   75% { background-position: 38px 18px }
 }
 
-/* ── VIGNETTE ── */
 #vig {
   position:fixed; inset:0; z-index:3; pointer-events:none;
   background:radial-gradient(ellipse at 50% 50%, transparent 28%, rgba(0,0,0,.72) 100%);
 }
 
-/* ══════════════════════════════════════
-   OVERLAY — text sits on top of video
-══════════════════════════════════════ */
 #overlay {
   position:fixed; inset:0; z-index:10;
   display:flex; flex-direction:column;
@@ -75,7 +68,6 @@ html, body {
   width:100%;
 }
 
-/* each line animates in with a stagger */
 .ov-pre {
   font-family:'Cinzel', serif;
   font-size:clamp(8px, 1.6vw, 11px);
@@ -148,7 +140,6 @@ html, body {
     0 0  60px rgba(0,0,0,.7);
 }
 
-/* ── BUTTON ── */
 #accept-btn {
   display:inline-block;
   margin-top:32px;
@@ -199,17 +190,18 @@ html, body {
 </head>
 <body>
 
-<!-- ════════════════════════════════════════════
-     VIDEO
-     1. Put your .mp4 in the same GitHub folder
-        as this HTML file.
-     2. Replace YOUR_VIDEO.mp4 below with its name.
-════════════════════════════════════════════ -->
 <div id="vid-wrap">
+  <!--
+    ══════════════════════════════════════════
+    VIDEO — swap YOUR_VIDEO.mov with your
+    actual filename. Keep the file in the
+    same GitHub folder as this index.html.
+    ══════════════════════════════════════════
+  -->
   <video id="bg-video"
-    src="YOUR_VIDEO.mp4"
     autoplay muted playsinline loop
     preload="auto">
+    <source src="YOUR_VIDEO.mov" type="video/mp4">
   </video>
   <div id="mk-top"></div>
   <div id="mk-bottom"></div>
@@ -220,7 +212,6 @@ html, body {
 <div id="grain"></div>
 <div id="vig"></div>
 
-<!-- OVERLAY TEXT -->
 <div id="overlay">
   <div class="ov-inner">
 
@@ -250,26 +241,27 @@ html, body {
 </div>
 
 <script>
-/* ════════════════════════════════════════════
+/* ══════════════════════════════════════════
    CHANGE THESE 3 FOR EACH PERSON
-════════════════════════════════════════════ */
-const PERSON_NAME   = "PERSON NAME";   // e.g.  "JAKE"
-const HOST_NAME     = "TYLER";         // "TYLER"  or  "JULIE"
-const POSITION_NAME = "BEST MAN";      // e.g.  "BEST MAN" / "MAID OF HONOR"
+══════════════════════════════════════════ */
+const PERSON_NAME   = "KRISTIAN THOMASON";  // e.g. "JAKE"
+const HOST_NAME     = "JULIE";        // "TYLER" or "JULIE"
+const POSITION_NAME = "MATRON OF HONOR";     // e.g. "BEST MAN" / "MAID OF HONOR"
 
-/* ════════════════════════════════════════════
-   TYLER & JULIE'S PHONE NUMBERS
-   Digits only, include country code (1 for US)
-════════════════════════════════════════════ */
-const TYLER_PHONE = "17705551234";   // ← replace with Tyler's real number
-const JULIE_PHONE = "17705555678";   // ← replace with Julie's real number
+/* ══════════════════════════════════════════
+   SET THESE ONCE — real numbers, digits only
+   include country code: 1 for US
+   e.g. "17706661234"
+══════════════════════════════════════════ */
+const TYLER_PHONE = "17705551234";  // ← Tyler's real number here
+const JULIE_PHONE = "17705555678";  // ← Julie's real number here
 
-/* ── inject names ── */
+/* ── inject text into page ── */
 document.getElementById('el-name').textContent     = PERSON_NAME;
 document.getElementById('el-host').textContent     = HOST_NAME;
 document.getElementById('el-position').textContent = POSITION_NAME;
 
-/* ── wire up SMS button to correct host ── */
+/* ── SMS button auto-routes to correct host ── */
 const phone = HOST_NAME.trim().toUpperCase() === 'JULIE' ? JULIE_PHONE : TYLER_PHONE;
 const msg   = encodeURIComponent(`I accept! I'm in — honored to be your ${POSITION_NAME}.`);
 document.getElementById('accept-btn').href = `sms:+${phone}&body=${msg}`;
