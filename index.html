@@ -207,11 +207,13 @@ html, body {
     autoplay muted playsinline
     preload="auto">
     <source src="Flower.MOV" type="video/quicktime">
-  </video>        <audio id="bg-audio" preload="auto">          <source src="A Walk Along the Gates.mp3" type="audio/mpeg">        </audio>        <audio id="bg-audio" preload="auto">
+  </video>
+          <audio id="bg-audio" preload="auto">
+                      <source src="A Walk Along the Gates.mp3" type="audio/mpeg">
+          </audio>
   <div id="mk-top"></div>
   <div id="mk-bottom"></div>
   <div id="mk-left"></div>
-  <div id="mk-right"></div>
 </div>
 
 <div id="grain"></div>
@@ -272,7 +274,7 @@ document.getElementById('accept-btn').href = `sms:+${phone}&body=${msg}`;
 /* ── video plays once, freezes on last frame, then overlay fades in ── */
 const vid     = document.getElementById('bg-video');
       const audio = document.getElementById('bg-audio');
-      vid.addEventListener('play', () => { audio.play(); }, { once: true });
+      document.body.addEventListener('touchstart', () => { audio.play(); }, { once: true });
 const overlay = document.getElementById('overlay');
 
 vid.addEventListener('ended', () => {
