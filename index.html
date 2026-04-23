@@ -120,14 +120,6 @@ vid.addEventListener('ended', function() {
 });
 
 /* accept btn: let href open SMS naturally, fade audio in background */
-var acceptEl = document.getElementById('accept-btn');
-acceptEl.addEventListener('click', function() {
-  var a = bgAudio;
-  var t = setInterval(function() {
-    if (a.volume > 0.08) { a.volume = Math.max(0, a.volume - 0.08); }
-    else { a.volume = 0; a.pause(); clearInterval(t); }
-  }, 50);
-});
 </script>
 </body>
 </html>
